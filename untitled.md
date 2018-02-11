@@ -54,19 +54,19 @@ Dimension :3 <br />
 Space : RGG <br />
 Datatype: unit8 (0 to 255) <br />
 
-###### Number of images per class:
+##### Number of images per class:
 
 ![alt_text][image1]
 
-######  More statistics on the data set: 
+#####  More statistics on the data set: 
 
 ![alt_text][image2]
 
-###### Top 10 largest class by image count:
+##### Top 10 largest class by image count:
 
 ![alt_text][image3]
 
-###### Top 10 smallest class by image count:
+##### Top 10 smallest class by image count:
 
 ![alt_text][image4]
 
