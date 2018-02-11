@@ -107,21 +107,28 @@ Here is an example of an original image and an augmented image:
 The difference between the original data set and the augmented data set is the following ... 
 
 
-#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+#### Final model architecture: 
+
 
 My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
+| Input         		| 32x32x1 Gray image   							| 
+| Convolution 5x5     	| 1x1 stride, valid padding, outputs 28x28x12 	|
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
+| Dropout		        | Keep Probability: 0.6 	                    |
+| Max pooling	      	| 2x2 stride, valid padding, outputs 14x14x12 	|
+| Convolution 5x5	    | 1x1 stride, valid padding, outputs 10x10x24	|
+| RELU          		| 												|
+| Dropout				| Keep Probability: 0.6 						|
+| Max pooling 			| 2x2 stride, valid padding, outputs 5x5x12		|
+| Fully Connected Layer	| inputs 600			     outputs 120		|
+| RELU					|												|
+| Dropout		        | Keep Probability: 0.6 	                    |
+| Fully Connected Layer	| inputs 120			     outputs 84 		|
+| RELU					|												|
+| Fully Connected Layer	| inputs 84			 		 outputs 43 		|
  
 
 
