@@ -3,7 +3,7 @@
 ## Introduction
 
 
-The goal of this project is to classify German Traffic Signs.  Since this is a image recognition classification problem. A Deep learning Convolution network is employed to solve the task at hand.  This is because Convolution networks has been known to excel in image classification problems. Over the past years all the IMAGENET competition winners and top contenders are convolution network based models. The model used in this project is an adapted version of LENET architecture from Yann Lecun's paper with some additional filters and dropout layers. The model was  trained on a preprocessed data which involved data augmentation and normalization. The final validation and test accuracy obtained is 97% and 95.2%  respectively. 
+The goal of this project is to classify German Traffic Signs.  Since this is a image recognition classification problem. A Deep learning Convolution network is employed to solve the task at hand.  This is because Convolution networks has been known to excel in image classification problems. Over the past years all the IMAGENET competition winners and top contenders are convolution network based models. The model used in this project is an modified version of LENET architecture from Yann Lecun's paper with some additional filters and strong regularization. The model was trained on a preprocessed data which involved data augmentation and normalization. The final validation and test accuracy obtained is 97% and 95.2%  respectively. 
 
 Here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 ---
@@ -41,21 +41,22 @@ The steps of this project are the following:
 
 ## Data Summary and Visualization:
 
-I used the pandas library to calculate summary statistics of the traffic
+Pandas library is used to calculate summary statistics of the traffic
 signs data set:
 
 #### Data set:
 
-No of classes: 43
-No of images in the original training  data set: 34799 <br />
+The set already given already included training, valid and test set. There was no need to segregate manually. 
+
+No of classes: 43 <br />
+No of images in the original training data set: 34799 <br />
 No of images in the original validation data set: 4410 <br />
 No of images in the original test data set: 12630 <br />
 
 #### Image:
 
-Image size: 32 X 32 <br />
-Dimension :3 <br />
-Space : RGG <br />
+Image size: 32 X 32 X 3 <br />
+Space : RGB <br />
 Datatype: unit8 (0 to 255) <br />
 
 ##### Number of images per class:
@@ -74,10 +75,7 @@ Datatype: unit8 (0 to 255) <br />
 
 ![alt_text][image3]
 
-
-#### 2. Include an exploratory visualization of the dataset.
-
-Here is an exploratory visualization of the data set.
+#### Exploratory visualization of the data set
 
 ##### 100 random samples from the entire data set
 
@@ -97,9 +95,9 @@ Here is an exploratory visualization of the data set.
 
 ##### Data Augmentation:
 
-During the exploratory visualization of the data set it is noted that the orignal data is unbalanced. Some classes have less images and some have more images comparitevly. For example, Label 0 and 19 have just 180 images whereas Label 2 and 1 has close to 2000 images. During the initial training phase with original data set the training accuracy was 0.92. Also the precision and recall were low for certain classes. In order to address the above problem, data augmentation technique was used to generate more data. 
+During the exploratory visualization of the data set it is noted that the orignal data is unbalanced. Some classes have less images and some have more images comparatively. For example, in the dataset, label 0 and 19 have just 180 images whereas Label 2 and 1 has close to 2000 images. This is a problem, as it could lead to low precision and recall for certain classes. Data augmentation is a technique was used to generate more data by reasonably modifying the images. This also helps the model to generalize. There are lot of methods used for data augmentation. Some are image blurring, rotation, random cropping, panning, downscalling, flipping, inversing etc. We explored several technique and used some which helped solve this problem.  
 
-The following the techniques were used in generating the augmentated data.
+The following the techniques are used in this model for generating the augmentated data.
 
 Image Blur:
 
@@ -109,7 +107,24 @@ Image Rotation:
 
 ![alt_text][image9]
 
-Other techniques such as image flipping, streching, downscaling (see commented section of the function _image_generator_ in the final code) were explored. But due to decrease in accuracy the these techniques were not used in the final model.
+Other techniques such as image flipping, streching, downscaling (see commented section of the function _image_generator_ in the final code) were explored. But due to decrease in accuracy these techniques were not used in the final model. 
+
+Stratergy for generating the images:
+
+*Step1: Augmentated images were generated for all the classes of the data set by applying the above DAG techniques on every 10 images of the dataset.
+
+Generate len(train_features)/10 images = 34799/10 = 3479x3(3 types of augmentation see image generator function for more details) = 10437 images 
+
+In this step additional 10437 images were generated.
+ 
+*Step2: During initial phase of training it is noted that the recall and precision has beeen low for the below class.
+Also it is noted that these classes have less images compared to others. Hence additional images generated for these
+classes. In this case 3 images were generated for every image of the selected class . For example: Class 20 has 299( 26249-25950) images. Hence it produced 299x3 images = 897 images
+
+*Total number images in the trainig set after data augmentation: 52496*
+
+*Note:* There is exists a predifined keras image generator but for learning purpose, a new images generator functon was written. However, the actualy image tranformation functions were used from scikit image library.
+
 
 ##### Bar graph after data augmentation:
 
@@ -122,11 +137,11 @@ In the paper “Traffic Sign Recognition with Multi-Scale Convolutional Networks
 
 ##### Normalization: 
 
-This is common used to most machine learning problem. It is to have zero mean and standard deviation which helps to penelize the losses more and reward the correct predictions less. 
+This is commonly used in most of the machine learning problem. It is to have zero mean and standard deviation which helps to penalize the losses more and reward the correct predictions less. 
 
 ##### Min Max scaling: 
 
-This technique scaled the feature values between -1 to 1. This also a requirement for adaptvie historgram equaliztion used as the last step of preprocessing pipeline. 
+This technique scales the feature values between 0 and 1. This also a requirement for adaptvie historgram equaliztion used as the last step of preprocessing pipeline. 
 
 ##### Adaptive Histogram Equalization: 
 
@@ -162,31 +177,65 @@ My final model consisted of the following layers:
  
 
 
-#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+#### Training Parameters
 
-EPochs = 20 <br />
-Batch_size = 128 <br />
-Optimizer: Adam <br />
+EPochs = 20 (After trail and error) <br /> 
+Batch_size = 128 (Did not explored much here as this size did produce fairly good results) <br />
+Optimizer: Adam (A default good optimizer)  <br />
+Learning Rate: 0.001 <br />
 
 
-#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+#### Training Approch and Changes:
 
-My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+Finding solution to machline learning problems is always an iterative approch based on some trail and error. This solution is no different. Some key iterations and changes leading to the final model are discussed below.
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+##### Initial Run: 
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+The initial model has no dropout layers. The size of filters were half of the filters used in the final model. 
+No data augmentation
+RGB images were used directly.
+Normalization 
+
+Valid set accuracy : 88%
+
+##### Change 1: 
+
+No changes to initial model <br />
+No data augmentation <br />
+*Greyscale Images* <br />
+*Normalization* <br />
+*Min max scaling* <br />
+*Adaptive Histogram equaliztion* <br />
+
+Valid set accuracy: 92% <br />
+
+###### Preicion and recall bar graph after running this model
+
+##### Change 2:
+
+No changes to initial model <br />
+*Included data augmention* <br />
+Greyscale Images <br />
+Normalization <br />
+Min max scaling <br />
+Adaptive Histogram equaliztion <br />
+
+Valid set accuracy: 95% <br />
+
+##### Final Change: 
+
+*Added dropout layer and double the filter sizes* <br />
+*Included data augmention* <br />
+Greyscale Images <br />
+Normalization <br />
+Min max scaling <br />
+Adaptive Histogram equaliztion <br />
+
+
+My final model results were: <br />
+* validation set accuracy: 97% <br />
+* test set accuracy of : 95% <br />
+
  
 
 ### Test a Model on New Images
