@@ -3,7 +3,7 @@
 ## Introduction
 
 
-The goal of this project is to classify German Traffic Signs.  Since this is a image recognition classification problem. A Deep learning Convolution network is employed to solve the task at hand.  This is because Convolution networks has been known to excel in images classification problems. Over the past years all the IMAGENET competition winners  and top contenders are convolution network based models. The model used in this project is an adapted version of Lenet architecture from Yann Lecun's paper with some additional filters and dropout layers. The model was  trained on a preprocessed data which involved data augmentation and normalization. The final validation and test accuracy obtained is 97% and 95.2%  respectively. 
+The goal of this project is to classify German Traffic Signs.  Since this is a image recognition classification problem. A Deep learning Convolution network is employed to solve the task at hand.  This is because Convolution networks has been known to excel in image classification problems. Over the past years all the IMAGENET competition winners and top contenders are convolution network based models. The model used in this project is an adapted version of LENET architecture from Yann Lecun's paper with some additional filters and dropout layers. The model was  trained on a preprocessed data which involved data augmentation and normalization. The final validation and test accuracy obtained is 97% and 95.2%  respectively. 
 
 Here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 ---
@@ -11,6 +11,7 @@ Here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sig
 **Build a Traffic Sign Recognition Project**
 
 The steps of this project are the following:
+
 * Load the data set (see below for links to the project data set)
 * Explore, summarize and visualize the data set
 * Design, train and test a model architecture
@@ -21,14 +22,20 @@ The steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./ImagesPerClass.png "ImagesPerClass"
-[image2]: ./MoreStatistics.png "MoreStatistics"
-[image3]: ./10smallest.jpg "10smallest"
-[image4]: ./10largest.png "10largest"
-[image5]: ./10random.png "10random"
-[image6]: ./100random.png "100random"
-[image7]: ./ClassBar.png "ClassBar"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[image1]:  ./ImagesPerClass.png "ImagesPerClass"
+[image2]:  ./MoreStatistics.png "MoreStatistics"
+[image3]:  ./10smallest.jpg "10smallest"
+[image4]:  ./10largest.png "10largest"
+[image5]:  ./10random.png "10random"
+[image6]:  ./100random.png "100random"
+[image7]:  ./ClassBar.png "ClassBar"
+[image8]:  ./DAGImageBlur.jpg "DAGImageBLur"
+[image9]:  ./DAGImageRot.jpg "DAGImageRot"
+[image10]: ./BarAfterDag.png "BarAfterDag"
+[image11]: ./100randomAfterPreprocess.png "100randomAfterPreprocess"
+[image12]: ./DAGImageBlur.jpg "DAGImageBLur"
+[image13]: ./DAGImageBlur.jpg "DAGImageBLur"
+
 
 ---
 
@@ -86,25 +93,48 @@ Here is an exploratory visualization of the data set.
 
 ### Design and Test a Model Architecture
 
-#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+#### Preprocessing 
 
-As a first step, I decided to convert the images to grayscale because ...
+##### Data Augmentation:
 
-Here is an example of a traffic sign image before and after grayscaling.
+During the exploratory visualization of the data set it is noted that the orignal data is unbalanced. Some classes have less images and some have more images comparitevly. For example, Label 0 and 19 have just 180 images whereas Label 2 and 1 has close to 2000 images. During the initial training phase with original data set the training accuracy was 0.92. Also the precision and recall were low for certain classes. In order to address the above problem, data augmentation technique was used to generate more data. 
 
-![alt text][image2]
+The following the techniques were used in generating the augmentated data.
 
-As a last step, I normalized the image data because ...
+Image Blur:
 
-I decided to generate additional data because ... 
+![alt_text][image8]
 
-To add more data to the the data set, I used the following techniques because ... 
+Image Rotation:
 
-Here is an example of an original image and an augmented image:
+![alt_text][image9]
 
-![alt text][image3]
+Other techniques such as image flipping, streching, downscaling (see commented section of the function _image_generator_ in the final code) were explored. But due to decrease in accuracy the these techniques were not used in the final model.
 
-The difference between the original data set and the augmented data set is the following ... 
+##### Bar graph after data augmentation:
+
+![alt_text][image10]
+
+
+##### Greyscale: 
+
+In the paper “Traffic Sign Recognition with Multi-Scale Convolutional Networks”, Pierre Sermanet and Yann LeCun mentioned that using color channels did not seem to improve the classification accuracy. Hence RGB image is converted into greyscale images which decreases the number of features. 
+
+##### Normalization: 
+
+This is common used to most machine learning problem. It is to have zero mean and standard deviation which helps to penelize the losses more and reward the correct predictions less. 
+
+##### Min Max scaling: 
+
+This technique scaled the feature values between -1 to 1. This also a requirement for adaptvie historgram equaliztion used as the last step of preprocessing pipeline. 
+
+##### Adaptive Histogram Equalization: 
+
+As a last step, adaptive histogram equalization is applied to increase the contrast of the greyscale images. This improved the exposure of darker images at same time not over exposuring other images. This method was also used in the paper... 
+
+###### Visualziation of dataset after applying adaptive equalziation:
+
+![alt text][image11]
 
 
 #### Final model architecture: 
@@ -134,7 +164,10 @@ My final model consisted of the following layers:
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+EPochs = 20 <br />
+Batch_size = 128 <br />
+Optimizer: Adam <br />
+
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
