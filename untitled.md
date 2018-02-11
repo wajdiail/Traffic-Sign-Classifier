@@ -25,17 +25,14 @@ The steps of this project are the following:
 [image2]: ./MoreStatistics.png "MoreStatistics"
 [image3]: ./10smallest.jpg "10smallest"
 [image4]: ./10largest.png "10largest"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
+[image5]: ./10random.png "10random"
+[image6]: ./100random.png "100random"
+[image7]: ./ClassBar.png "ClassBar"
 [image8]: ./examples/placeholder.png "Traffic Sign 5"
 
 ---
 
 ## Data Summary and Visualization:
-
-
-#### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
 I used the pandas library to calculate summary statistics of the traffic
 signs data set:
@@ -64,16 +61,28 @@ Datatype: unit8 (0 to 255) <br />
 
 ##### Top 10 largest class by image count:
 
-![alt_text][image3]
+![alt_text][image4]
 
 ##### Top 10 smallest class by image count:
 
-![alt_text][image4]
+![alt_text][image3]
 
 
 #### 2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
+Here is an exploratory visualization of the data set.
+
+##### 100 random samples from the entire data set
+
+![alt_text][image6]
+
+##### 10 random samples from 3 classes
+
+![alt_text][image5]
+
+##### Bar graph of the data set distribution with respect to classes
+
+![alt_text][image7]
 
 ### Design and Test a Model Architecture
 
