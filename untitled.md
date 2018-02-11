@@ -24,7 +24,7 @@ The steps of this project are the following:
 [image1]: ./ImagesPerClass.png "ImagesPerClass"
 [image2]: ./MoreStatistics.png "MoreStatistics"
 [image3]: ./10smallest.jpg "10smallest"
-[image4]: ./10largest.jpg "10largest"
+[image4]: ./10largest.png "10largest"
 [image5]: ./examples/placeholder.png "Traffic Sign 2"
 [image6]: ./examples/placeholder.png "Traffic Sign 3"
 [image7]: ./examples/placeholder.png "Traffic Sign 4"
