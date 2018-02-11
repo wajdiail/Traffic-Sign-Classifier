@@ -22,9 +22,9 @@ The steps of this project are the following:
 [//]: # (Image References)
 
 [image1]: ./ImagesPerClass.png "ImagesPerClass"
-[image2]: ./examples/MoreStatistics.png "MoreStatistics"
-[image3]: ./10smallest.png "10smallest"
-[image4]: ./10largest.png "10largest"
+[image2]: ./MoreStatistics.png "MoreStatistics"
+[image3]: ./10smallest.jpg "10smallest"
+[image4]: ./10largest.jpg "10largest"
 [image5]: ./examples/placeholder.png "Traffic Sign 2"
 [image6]: ./examples/placeholder.png "Traffic Sign 3"
 [image7]: ./examples/placeholder.png "Traffic Sign 4"
@@ -43,16 +43,16 @@ signs data set:
 #### Data set:
 
 No of classes: 43
-No of images in the original training  data set: 347998 <br />
+No of images in the original training  data set: 34799 <br />
 No of images in the original validation data set: 4410 <br />
 No of images in the original test data set: 12630 <br />
 
 #### Image:
 
-Image size: 32 X 32
-Dimension :3
-Space : RGG
-Datatype: unit8 (0 to 255)
+Image size: 32 X 32 <br />
+Dimension :3 <br />
+Space : RGG <br />
+Datatype: unit8 (0 to 255) <br />
 
 ###### Number of images per class:
 
