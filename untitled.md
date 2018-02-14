@@ -95,7 +95,7 @@ Datatype: unit8 (0 to 255) <br />
 
 ##### Data Augmentation:
 
-During the exploratory visualization of the data set it is noted that the orignal data is unbalanced. Some classes have less images and some have more images comparatively. For example, in the dataset, label 0 and 19 have just 180 images whereas Label 2 and 1 has close to 2000 images. This is a problem, as it could lead to low precision and recall for certain classes. Data augmentation is a technique was used to generate more data by reasonably modifying the images. This also helps the model to generalize. There are lot of methods used for data augmentation. Some are image blurring, rotation, random cropping, panning, downscalling, flipping, inversing etc. We explored several technique and used some which helped solve this problem.  
+During the exploratory visualization of the data set it is noted that the orignal data is unbalanced. Some classes have less images and some have more images comparatively. For example, in the dataset, label 0 and 19 have just 180 images whereas Label 2 and 1 has close to 2000 images. This is a problem, as it could lead the model to be biased on the classes which has more data which lead to to low precision and recall. Data augmentation is a technique used to generate more data by reasonably modifying the images. This also helps the model to generalize. There are lot of methods used for data augmentation. Some are image blurring, rotation, random cropping, panning, downscalling, flipping, inversing etc. We explored several technique and used some which helped this model.  
 
 The following the techniques are used in this model for generating the augmentated data.
 
@@ -109,21 +109,18 @@ Image Rotation:
 
 Other techniques such as image flipping, streching, downscaling (see commented section of the function _image_generator_ in the final code) were explored. But due to decrease in accuracy these techniques were not used in the final model. 
 
-Stratergy for generating the images:
+**Steps involved in generating the images:
 
-*Step1: Augmentated images were generated for all the classes of the data set by applying the above DAG techniques on every 10 images of the dataset.
-
-Generate len(train_features)/10 images = 34799/10 = 3479x3(3 types of augmentation see image generator function for more details) = 10437 images 
-
-In this step additional 10437 images were generated.
+* Step1: Augmentated images were generated for all the classes of the data set by applying the above techniques on every 10 images of the dataset.Generate len(train_features)/10 images = 34799/10 = 3479x3(3 types of augmentation see image generator function for more details) = 10437 images 
+ _In this step additional 10437 images were generated._
  
-*Step2: During initial phase of training it is noted that the recall and precision has beeen low for the below class.
-Also it is noted that these classes have less images compared to others. Hence additional images generated for these
-classes. In this case 3 images were generated for every image of the selected class . For example: Class 20 has 299( 26249-25950) images. Hence it produced 299x3 images = 897 images
+* Step2: During the initial phase of training it is noted that the recall and precision has beeen low for the some classes.
+Also it is noted that these classes have less images compared to others. Hence additional images were generated for these
+classes. In this step 3 images were generated for every image of the selected class. For example: Class 20 has 299( 26249-25950) images. Hence it produced 299x3 images = 897 images
 
-*Total number images in the trainig set after data augmentation: 52496*
+_Total number images in the trainig set after data augmentation: 52496_
 
-*Note:* There is exists a predifined keras image generator but for learning purpose, a new images generator functon was written. However, the actualy image tranformation functions were used from scikit image library.
+_Note:_ There exists a predifined keras image generator but for learning purpose, a new image generator functon was written. However, the actualy image tranformation functions were used from scikit image library.
 
 
 ##### Bar graph after data augmentation:
@@ -133,19 +130,19 @@ classes. In this case 3 images were generated for every image of the selected cl
 
 ##### Greyscale: 
 
-In the paper “Traffic Sign Recognition with Multi-Scale Convolutional Networks”, Pierre Sermanet and Yann LeCun mentioned that using color channels did not seem to improve the classification accuracy. Hence RGB image is converted into greyscale images which decreases the number of features. 
+In the paper “Traffic Sign Recognition with Multi-Scale Convolutional Networks”, Pierre Sermanet and Yann LeCun mentioned that using color channels did not seem to improve the classification accuracy. Hence RGB image is converted into greyscale images which also decreases the number of features. 
 
 ##### Normalization: 
 
-This is commonly used in most of the machine learning problem. It is to have zero mean and standard deviation which helps to penalize the losses more and reward the correct predictions less. 
+Normalization is commonly used in most of the machine learning problem. It is to have zero mean and standard deviation which helps to penalize the losses more and reward the correct predictions less. This also aids gradient descent.
 
 ##### Min Max scaling: 
 
-This technique scales the feature values between 0 and 1. This also a requirement for adaptvie historgram equaliztion used as the last step of preprocessing pipeline. 
+Min-max technique scales the feature values between 0 and 1. This also a requirement for adaptvie historgram equaliztion used as the last step of preprocessing pipeline. 
 
 ##### Adaptive Histogram Equalization: 
 
-As a last step, adaptive histogram equalization is applied to increase the contrast of the greyscale images. This improved the exposure of darker images at same time not over exposuring other images. This method was also used in the paper... 
+As a last step, adaptive histogram equalization is applied to increase the contrast of the greyscale images. This improves the exposure of darker images at same time not over exposuring other images. This method is also used in the paper “Traffic Sign Recognition with Multi-Scale Convolutional Networks”, by Pierre Sermanet and Yann LeCun
 
 ###### Visualziation of dataset after applying adaptive equalziation:
 
@@ -191,21 +188,19 @@ Finding solution to machline learning problems is always an iterative approch ba
 
 ##### Initial Run: 
 
-The initial model has no dropout layers. The size of filters were half of the filters used in the final model. 
+The initial model had no dropout layers. The size of filters were half of the filters used in the final model. 
 No data augmentation
 RGB images were used directly.
-Normalization 
+Only Normalization was used in preprocessing 
 
 Valid set accuracy : 88%
 
 ##### Change 1: 
 
-No changes to initial model <br />
-No data augmentation <br />
-*Greyscale Images* <br />
-*Normalization* <br />
-*Min max scaling* <br />
-*Adaptive Histogram equaliztion* <br />
+RGB image was converted to Greyscale images <br />
+Additionally Min max scaling was applied after normalization <br />
+Improved the contrast using Adaptive Histogram equaliztion <br />
+Generated precision and recall bar graph for fine tuning
 
 Valid set accuracy: 92% <br />
 
@@ -213,23 +208,13 @@ Valid set accuracy: 92% <br />
 
 ##### Change 2:
 
-No changes to initial model <br />
-*Included data augmention* <br />
-Greyscale Images <br />
-Normalization <br />
-Min max scaling <br />
-Adaptive Histogram equaliztion <br />
+Generated more images in general for the entire training set and additional images for classes having low recall and precison values using data augmention*<br />
 
 Valid set accuracy: 95% <br />
 
 ##### Final Change: 
 
-*Added dropout layer and double the filter sizes* <br />
-*Included data augmention* <br />
-Greyscale Images <br />
-Normalization <br />
-Min max scaling <br />
-Adaptive Histogram equaliztion <br />
+Added dropout layer and doubled the filter sizes <br />
 
 
 My final model results were: <br />
@@ -283,5 +268,8 @@ For the second image ...
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+
+
+
 
 
