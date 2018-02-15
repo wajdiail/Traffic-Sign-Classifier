@@ -5,7 +5,7 @@
 
 The goal of this project is to classify German Traffic Signs.  Since this is a image recognition classification problem. A Deep learning Convolution network is employed to solve the task at hand.  This is because CNNs are known to excel in image classification problems. Over the past years all the IMAGENET competition winners and top contenders are CNN based models. The model used in this project is an modified version of LeNeT architecture from Yann Lecun's paper with some additional filters and strong regularization. The model was trained on a preprocessed data which involved data augmentation and normalization. The final validation and test accuracy obtained is 97.3% and 95.6%  respectively. 
 
-Here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+Here is a link to my [project code](https://github.com/wajdiail/Traffic-Sign-Classifier/blob/master/Final_Code.ipynb)
 ---
 
 **Traffic Sign Recognition Project**
