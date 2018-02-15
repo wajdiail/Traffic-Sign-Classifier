@@ -3,12 +3,12 @@
 ## Introduction
 
 
-The goal of this project is to classify German Traffic Signs.  Since this is a image recognition classification problem. A Deep learning Convolution network is employed to solve the task at hand.  This is because Convolution networks has been known to excel in image classification problems. Over the past years all the IMAGENET competition winners and top contenders are convolution network based models. The model used in this project is an modified version of LENET architecture from Yann Lecun's paper with some additional filters and strong regularization. The model was trained on a preprocessed data which involved data augmentation and normalization. The final validation and test accuracy obtained is 97% and 95.2%  respectively. 
+The goal of this project is to classify German Traffic Signs.  Since this is a image recognition classification problem. A Deep learning Convolution network is employed to solve the task at hand.  This is because CNNs are known to excel in image classification problems. Over the past years all the IMAGENET competition winners and top contenders are CNN based models. The model used in this project is an modified version of LeNeT architecture from Yann Lecun's paper with some additional filters and strong regularization. The model was trained on a preprocessed data which involved data augmentation and normalization. The final validation and test accuracy obtained is 97.3% and 95.6%  respectively. 
 
 Here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 ---
 
-**Build a Traffic Sign Recognition Project**
+**Traffic Sign Recognition Project**
 
 The steps of this project are the following:
 
@@ -50,12 +50,12 @@ The steps of this project are the following:
 
 ## Data Summary and Visualization:
 
-Pandas library is used to calculate summary statistics of the traffic
+Pandas library is used for data summary and statistics of the traffic
 signs data set:
 
 #### Data set:
 
-The set already given already included training, valid and test set. There was no need to segregate manually. 
+The data set given already includes training, valid and test set. There was no need them segregate manually. 
 
 No of classes: 43 <br />
 No of images in the original training data set: 34799 <br />
@@ -104,7 +104,7 @@ Datatype: unit8 (0 to 255) <br />
 
 ##### Data Augmentation:
 
-During the exploratory visualization of the data set it is noted that the orignal data is unbalanced. Some classes have less images and some have more images comparatively. For example, in the dataset, label 0 and 19 have only 180 images whereas Label 2 and 1 has close to 2000 images. This is a problem, as it could train the model to be biased on the classes which has more data which could lead to to low precision and recall. Data augmentation is a technique used to generate more data by reasonably modifying the images. This also helps the model to generalize. There are lot of methods used for data augmentation. Some are image blurring, rotation, random cropping, panning, downscalling, flipping, inversing etc. 
+During the exploratory visualization of the data set it is noted that the orignal data is unbalanced. Some classes have less images and some have more images comparatively. For example, in the dataset, label 0 and 19 have only 180 images whereas Label 2 and 1 has close to 2000 images. This is a problem, as it could train the model to be biased on the classes which has more data which could lead to low precision and recall. Data augmentation is a technique used to generate more data by reasonably modifying the images. This also helps the model to generalize well. There are lot of methods used for data augmentation. Some are image blurring, rotation, random cropping, panning, downscalling, flipping, inversing etc. 
 
 The following techniques are used in this model for generating the augmentated data.
 
@@ -120,12 +120,13 @@ Other techniques such as image flipping, streching, downscaling (see commented s
 
 **Steps involved in generating the images**:
 
-* Step1: Augmentated images were generated for all the classes of the data set by applying the above techniques on every 10 images of the dataset.Generate len(train_features)/10 images = 34799/10 = 3479x3(3 types of augmentation see image generator function for more details) = 10437 images 
+* Step1: Augmentated images were generated for all the classes of the data set by applying the above techniques on every 10 images of the dataset. Generated len(train_features)/10 images = 34799/10 = 3479x3(3 types of augmentation see image generator function for more details) = 10437 images 
+
  **In this step additional 10437 images were generated**
  
-* Step2: During the initial phase of training it is noted that the recall and precision has beeen low for the some classes.
+* Step2: During the initial phase of training it is noted that the recall and precision has beeen low for some classes.
 Also it is noted that these classes have less images compared to others. Hence additional images were generated for these
-classes. In this step 3 images were generated for every image of the selected class. For example: Class 20 has 299( 26249-25950) images. Hence it produced 299x3 images = 897 images
+classes. In this step three images were generated for every single image of the selected class. For example: Class 20 has 299( 26249-25950) images. Hence it produced 299x3 images = 897 images
 
 **Total number images in the trainig set after data augmentation: 52496**
 
@@ -139,7 +140,7 @@ classes. In this step 3 images were generated for every image of the selected cl
 
 ##### Greyscale: 
 
-In the paper “Traffic Sign Recognition with Multi-Scale Convolutional Networks”, Pierre Sermanet and Yann LeCun mentioned that using color channels did not seem to improve the classification accuracy. Hence RGB image is converted into greyscale images which also decreases the number of features. 
+In the paper “Traffic Sign Recognition with Multi-Scale Convolutional Networks”, Pierre Sermanet and Yann LeCun mentioned that using color channels did not seem to improve the classification accuracy. Hence RGB images were converted into greyscale images which also decreases the number of features. 
 
 ##### Normalization: 
 
@@ -147,11 +148,11 @@ Normalization is commonly used in most of the machine learning problem. It is to
 
 ##### Min Max scaling: 
 
-Min-max technique scales the feature values between 0 and 1. This also a requirement for adaptvie historgram equaliztion used as the last step of preprocessing pipeline. 
+Min-max technique scales the feature values between 0 and 1. This is also a requirement for adaptvie historgram equaliztion used as the last step of preprocessing pipeline. 
 
 ##### Adaptive Histogram Equalization: 
 
-As a last step, adaptive histogram equalization is applied to increase the contrast of the greyscale images. This improves the exposure of darker images at same time not over exposuring other images. This method is also used in the paper “Traffic Sign Recognition with Multi-Scale Convolutional Networks”, by Pierre Sermanet and Yann LeCun
+In the last step, adaptive histogram equalization is applied to increase the contrast of the greyscale images. This improves the exposure of darker images at same time not over exposuring other images. This method is also used in the paper “Traffic Sign Recognition with Multi-Scale Convolutional Networks”, by Pierre Sermanet and Yann LeCun
 
 ###### Visualziation of dataset after applying adaptive equalziation:
 
@@ -193,14 +194,14 @@ Learning Rate: 0.001 <br />
 
 #### Training Approch and Changes:
 
-Finding solution to machline learning problems is always an iterative approch based on some trail and error. This solution is no different. Some key iterations and changes leading to the final model are discussed below.
+Finding solution to machine learning problems is always an iterative approch based on some trail and error. This solution is no different. Some key iterations and changes leading to the final model are discussed below.
 
 ##### Initial Run: 
 
-The initial model had no dropout layers. The size of filters were half of the filters used in the final model. 
-No data augmentation
-RGB images were used directly.
-Only Normalization was used in preprocessing 
+The initial model had no dropout layers. The size of filters were half of the filters used in the final model <br />
+No data augmentation applied <br />
+RGB images were used directly <br />
+Only Normalization was used in preprocessing <br />
 
 Valid set accuracy : 88%
 
@@ -209,15 +210,13 @@ Valid set accuracy : 88%
 RGB images were converted to Greyscale images <br />
 Min max scaling was applied after normalization <br />
 Improved the contrast using Adaptive Histogram Equaliztion <br />
-Generated precision and recall bar graph for fine tuning
+Generated precision and recall bar graph for fine tuning <br />
 
 Valid set accuracy: 92% <br />
 
-###### Preicion and recall bar graph after running this model
-
 ##### Change 2:
 
-Generated more images in general for the entire training set and additional images for classes having low recall and precison values using data augmention<br />
+Generated more images in general for the entire training set and additional images for classes having low recall and precison values using data augmention techniques<br />
 
 Valid set accuracy: 95% <br />
 
@@ -226,20 +225,20 @@ Valid set accuracy: 95% <br />
 Added dropout layer and doubled the filter sizes <br />
 
 
-My final model results were: <br />
-* validation set accuracy: 97% <br />
-* test set accuracy of : 95% <br />
+Final model results were: <br />
+* validation set accuracy: **97.3%** <br />
+* test set accuracy of : **95.6%** <br />
+* web images accuracy : **80%** <br />
 
  
 
 ### Testing Model on Web Images
 
-Here are five German traffic signs that I found on the web:
+Here are five German traffic signs that are found on the web:
 
 ![alt text][image13] ![alt text][image14] ![alt text][image15] 
 ![alt text][image16] ![alt text][image17]
 
-The first image might be difficult to classify because the model is getting confused between other speed signs. 
 
 Here are the results of the prediction:
 
@@ -252,25 +251,47 @@ Here are the results of the prediction:
 | Turn right a head			           | Turn right a head							|
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of **80%**
 
-#### Top 5 Softmax visualization of the web images
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+#### Top 5 Softmax visualization of the web images:
+
+For the first image, 120km/h, the model is incorrectly predicting 60 km/h. Initial analysis did not flag anything unsual. Both the classes 60km/h and 120km/h have equal amount of data and relatively good percentage of data in the overall training set. Even the precision and recall numbers are high for the both classes. Hence it could be suspected that the model should be underfitting for this class.   
 
 ![alt text][image18]
+
+The model has correctly predicted this image. However, the confidence is slighly lesser. 
+
 ![alt text][image19]
+
+The model has predicted correctly with good confidence
+
 ![alt text][image20]
+
+In this case, though the model has correctly predicted the images but its confidence is less and it is getting confused with its opposite side image. 
+
 ![alt text][image21]
+
+Similarly, for this image the close predictions are the ones which has similar shape.
+
 ![alt text][image22]
 
 
-#### Feature map from the model
+#### Feature map from the model:
+
+Feauter maps are extracted from the model to have a better understanding of the internal functionality of ConvNets. Below is the visualization of two activation maps.
 
 ![alt text][image23]
 
 
 ### Future Improvements:
+
+1. Precision/Recall are less for few classes. This could be improved by better targetting the data augmentation
+2. The model is generally weak in predicting traffic signs with numbers. Further analysis should be done here to improve.
+3. Multi-Scale CNNs can be employed to improve the accuracy further
+4. Keras' built in data generator can be used for augmenting the data.
+5. Train for more Epochs on GPU
+
 
 
 
