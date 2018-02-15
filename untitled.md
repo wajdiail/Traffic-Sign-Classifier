@@ -34,17 +34,17 @@ The steps of this project are the following:
 [image10]: ./BarAfterDag.png "BarAfterDag"
 [image11]: ./100randomAfterPreprocess.png "100randomAfterPreprocess"
 [image12]: ./DAGImageBlur.jpg "DAGImageBLur"
-[image13]: ./web_images/img1.jpeg
-[image14]: ./web_images/img2.jpeg
-[image15]: ./web_images/img3.jpeg
-[image16]: ./web_images/img4.jpeg
-[image17]: ./web_images/img5.jpeg
-[image18]: ./WebSoftMax120.jpg
-[image19]: ./WebSoftMaxRightofWay.jpg
-[image20]: ./WebSoftMaxYield.jpg
-[image21]: ./WebSoftMaxTurnLeft.jpg
-[image22]: ./WebSoftMaxTurnRight.jpg
-[image23]: ./FeatureMaps.jpg
+[image13]: ./web_images/img1_disp.jpeg
+[image14]: ./web_images/img2_disp.jpeg
+[image15]: ./web_images/img3_disp.jpeg
+[image16]: ./web_images/img4_disp.jpeg
+[image17]: ./web_images/img5_disp.jpeg
+[image18]: ./WebSoftMax120.png
+[image19]: ./WebSoftMaxRightofWay.png
+[image20]: ./WebSoftMaxYield.png
+[image21]: ./WebSoftMaxTurnLeft.png
+[image22]: ./WebSoftMaxTurnRight.png
+[image23]: ./FeatureMaps.png
 
 ---
 
@@ -272,8 +272,7 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 
 ### Future Improvements:
 
-* Improved desing
-testing
+
 
 
 
