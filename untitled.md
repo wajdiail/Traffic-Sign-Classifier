@@ -34,8 +34,17 @@ The steps of this project are the following:
 [image10]: ./BarAfterDag.png "BarAfterDag"
 [image11]: ./100randomAfterPreprocess.png "100randomAfterPreprocess"
 [image12]: ./DAGImageBlur.jpg "DAGImageBLur"
-[image13]: ./DAGImageBlur.jpg "DAGImageBLur"
-
+[image13]: ./web_images/img1.jpeg
+[image14]: ./web_images/img2.jpeg
+[image15]: ./web_images/img3.jpeg
+[image16]: ./web_images/img4.jpeg
+[image17]: ./web_images/img5.jpeg
+[image18]: ./WebSoftMax120.jpg
+[image19]: ./WebSoftMaxRightofWay.jpg
+[image20]: ./WebSoftMaxYield.jpg
+[image21]: ./WebSoftMaxTurnLeft.jpg
+[image22]: ./WebSoftMaxTurnRight.jpg
+[image23]: ./FeatureMaps.jpg
 
 ---
 
@@ -95,35 +104,35 @@ Datatype: unit8 (0 to 255) <br />
 
 ##### Data Augmentation:
 
-During the exploratory visualization of the data set it is noted that the orignal data is unbalanced. Some classes have less images and some have more images comparatively. For example, in the dataset, label 0 and 19 have just 180 images whereas Label 2 and 1 has close to 2000 images. This is a problem, as it could lead the model to be biased on the classes which has more data which lead to to low precision and recall. Data augmentation is a technique used to generate more data by reasonably modifying the images. This also helps the model to generalize. There are lot of methods used for data augmentation. Some are image blurring, rotation, random cropping, panning, downscalling, flipping, inversing etc. We explored several technique and used some which helped this model.  
+During the exploratory visualization of the data set it is noted that the orignal data is unbalanced. Some classes have less images and some have more images comparatively. For example, in the dataset, label 0 and 19 have only 180 images whereas Label 2 and 1 has close to 2000 images. This is a problem, as it could train the model to be biased on the classes which has more data which could lead to to low precision and recall. Data augmentation is a technique used to generate more data by reasonably modifying the images. This also helps the model to generalize. There are lot of methods used for data augmentation. Some are image blurring, rotation, random cropping, panning, downscalling, flipping, inversing etc. 
 
-The following the techniques are used in this model for generating the augmentated data.
+The following techniques are used in this model for generating the augmentated data.
 
-Image Blur:
+**Image Blur:**
 
 ![alt_text][image8]
 
-Image Rotation:
+**Image Rotation:**
 
 ![alt_text][image9]
 
 Other techniques such as image flipping, streching, downscaling (see commented section of the function _image_generator_ in the final code) were explored. But due to decrease in accuracy these techniques were not used in the final model. 
 
-**Steps involved in generating the images:
+**Steps involved in generating the images**:
 
 * Step1: Augmentated images were generated for all the classes of the data set by applying the above techniques on every 10 images of the dataset.Generate len(train_features)/10 images = 34799/10 = 3479x3(3 types of augmentation see image generator function for more details) = 10437 images 
- _In this step additional 10437 images were generated._
+ **In this step additional 10437 images were generated**
  
 * Step2: During the initial phase of training it is noted that the recall and precision has beeen low for the some classes.
 Also it is noted that these classes have less images compared to others. Hence additional images were generated for these
 classes. In this step 3 images were generated for every image of the selected class. For example: Class 20 has 299( 26249-25950) images. Hence it produced 299x3 images = 897 images
 
-_Total number images in the trainig set after data augmentation: 52496_
+**Total number images in the trainig set after data augmentation: 52496**
 
-_Note:_ There exists a predifined keras image generator but for learning purpose, a new image generator functon was written. However, the actualy image tranformation functions were used from scikit image library.
+**Note:** There exists a predifined keras image generator but for learning purpose, a new image generator functon was written. However, the actualy image tranformation functions were used from scikit image library.
 
 
-##### Bar graph after data augmentation:
+### Bar graph after data augmentation:
 
 ![alt_text][image10]
 
@@ -197,9 +206,9 @@ Valid set accuracy : 88%
 
 ##### Change 1: 
 
-RGB image was converted to Greyscale images <br />
-Additionally Min max scaling was applied after normalization <br />
-Improved the contrast using Adaptive Histogram equaliztion <br />
+RGB images were converted to Greyscale images <br />
+Min max scaling was applied after normalization <br />
+Improved the contrast using Adaptive Histogram Equaliztion <br />
 Generated precision and recall bar graph for fine tuning
 
 Valid set accuracy: 92% <br />
@@ -208,7 +217,7 @@ Valid set accuracy: 92% <br />
 
 ##### Change 2:
 
-Generated more images in general for the entire training set and additional images for classes having low recall and precison values using data augmention*<br />
+Generated more images in general for the entire training set and additional images for classes having low recall and precison values using data augmention<br />
 
 Valid set accuracy: 95% <br />
 
@@ -223,51 +232,49 @@ My final model results were: <br />
 
  
 
-### Test a Model on New Images
-
-#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+### Testing Model on Web Images
 
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![alt text][image13] ![alt text][image14] ![alt text][image15] 
+![alt text][image16] ![alt text][image17]
 
-The first image might be difficult to classify because ...
-
-#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+The first image might be difficult to classify because the model is getting confused between other speed signs. 
 
 Here are the results of the prediction:
 
-| Image			        |     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Image				  	  	           |     Prediction	        					| 
+|:------------------------------------:|:------------------------------------------:| 
+| Speed limit 120(km/h)	               | Speed limit 60(km/h)  						| 
+| Right of way at the next intersection| Right of way at the next intersection 		|
+| Turn left a head					   | Turn left a head							|
+| Yield	      		                   | Yield  					 				|
+| Turn right a head			           | Turn right a head							|
 
 
 The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
 
-#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
-
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+#### Top 5 Softmax visualization of the web images
 
 For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
 
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+![alt text][image18]
+![alt text][image19]
+![alt text][image20]
+![alt text][image21]
+![alt text][image22]
 
 
-For the second image ... 
+#### Feature map from the model
 
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+![alt text][image22]
+
+
+### Future Improvements:
+
+* Improved desing
+testing
+
 
 
 
