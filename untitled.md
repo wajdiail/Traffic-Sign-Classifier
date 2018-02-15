@@ -267,7 +267,7 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 
 #### Feature map from the model
 
-![alt text][image22]
+![alt text][image23]
 
 
 ### Future Improvements:
